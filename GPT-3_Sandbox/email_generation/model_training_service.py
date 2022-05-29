@@ -30,8 +30,9 @@ class Code:
         for kwarg in myKwargs:
             kwargs[kwarg] = myKwargs[kwarg]
 
-        r = openai.Completion.create(prompt=prompt, **kwargs)["choices"][0]["text"].strip()
-        return r
+        return openai.Completion.create(prompt=prompt, **kwargs)["choices"][0][
+            "text"
+        ].strip()
 
     def model_prediction(self, input, api_key):
         """
@@ -39,5 +40,4 @@ class Code:
         """
         # Setting the OpenAI API key got from the OpenAI dashboard
         set_openai_key(api_key)
-        output = self.query(defaultPrompt.format(input))
-        return output
+        return self.query(defaultPrompt.format(input))
